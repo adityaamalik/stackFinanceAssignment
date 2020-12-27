@@ -233,6 +233,88 @@ app.post("/records", async (req, res) => {
   }
 });
 
+//GET ALL NOTES
+//GET NOTES BY NOTE ID
+//Body Params
+//1. notes_id (if you want to search a note by it's ID)
+app.get("/notes", async (req, res) => {
+  let url;
+  if (req.body.notes_id === undefined) {
+    url = `https://www.zohoapis.in/crm/v2/Notes`;
+  } else {
+    url = `https://www.zohoapis.in/crm/v2/Notes/${req.body.notes_id}`;
+  }
+
+  let headers = {
+    Authorization: `Zoho-oauthtoken ${process.env.ACCESS_TOKEN}`,
+  };
+
+  let parameters = {
+    fields: "Note_Title,Note_Content",
+    page: 1,
+    per_page: 30,
+  };
+
+  let requestDetails = {
+    method: "GET",
+    headers: headers,
+    searchParams: parameters,
+    throwHttpErrors: false,
+  };
+
+  let response = await got(url, requestDetails);
+
+  if (response != null) {
+    res.send(response.body);
+  } else {
+    res.send("Empty response");
+  }
+});
+
+//ADD a new NOTE
+//Body PARAMS
+//1. note_title
+//2. note_content
+//3. record_id (get from records API)
+//4. modile_name (name of the module , example : "Leads", "Contacted")
+
+app.post("/notes", async (req, res) => {
+  let url = "https://www.zohoapis.in/crm/v2/Notes";
+  let headers = {
+    Authorization: `Zoho-oauthtoken ${process.env.ACCESS_TOKEN}`,
+  };
+
+  let requestBody = {};
+  let recordArray = [];
+
+  let recordObject = {
+    Note_Title: req.body.note_title,
+    Note_Content: req.body.note_content,
+    Parent_Id: req.body.record_id, //get from records API
+    se_module: req.body.module_name,
+  };
+
+  recordArray.push(recordObject);
+
+  requestBody["data"] = recordArray;
+
+  let requestDetails = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(requestBody),
+    encoding: "utf8",
+    throwHttpErrors: false,
+  };
+
+  let response = await got(url, requestDetails);
+
+  if (response != null) {
+    res.send(response.body);
+  } else {
+    res.send("Error !");
+  }
+});
+
 app.listen(process.env.PORT || "5000", function () {
   console.log("Server is up and running !");
 });
