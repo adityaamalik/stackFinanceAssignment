@@ -1,7 +1,8 @@
 # stackFinanceAssignment
+
 Assignment for stack finance interview
 
-Steps to run the project : 
+Steps to run the project :
 
 1. Clone the repo in your local system
 2. run "npm install" (in the project directory)
@@ -10,4 +11,25 @@ Steps to run the project :
 5. Use POSTMAN to test the API - "https://www.getpostman.com/collections/7fc06ef94cad42d4faf0" (Created this collection for ease of use of others)
 
 ## ADD NEW NOTE
-![Add new note](https://drive.google.com/file/d/1e_Sz_tKw885rsKCyC_ytm88PTGloU7UG/view?usp=sharing "Add new note")
+
+<img src="screenshots/AddNewNote.png" height="400px" width="auto"/>
+
+## GET NOTES (BY ID ALSO)
+
+<img src="screenshots/GetNote.png" height="400px" width="auto"/>
+
+## ADD NEW RECORD
+
+<img src="screenshots/InsertRecord.png" height="400px" width="auto"/>
+
+## GET RECORDS
+
+<img src="screenshots/GetRecord.png" height="400px" width="auto"/>
+
+## ADD NEW USER
+
+<img src="screenshots/InsertNewUser.png" height="400px" width="auto"/>
+
+## GET USERS
+
+<img src="screenshots/GetUser.png" height="400px" width="auto"/>
